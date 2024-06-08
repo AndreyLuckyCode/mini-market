@@ -6,6 +6,7 @@
   <packaging>pom</packaging>
     <modules>
         <module>product-rest-api</module>
+        <module>manager-app</module>
     </modules>
     <version>1.0-SNAPSHOT</version>
   <name>MiniMarket Maven Webapp</name>

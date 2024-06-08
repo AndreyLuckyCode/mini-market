@@ -1,10 +1,10 @@
-package andrey.code.service;
+package andrey.code.rest.service;
 
-import andrey.code.controller.payload.ProductPayload;
-import andrey.code.entity.ProductEntity;
-import andrey.code.mapper.ProductDTO;
-import andrey.code.mapper.ProductMapper;
-import andrey.code.repository.ProductRepository;
+import andrey.code.rest.controller.payload.ProductPayload;
+import andrey.code.rest.entity.ProductEntity;
+import andrey.code.rest.mapper.ProductMapper;
+import andrey.code.rest.repository.ProductRepository;
+import andrey.code.rest.mapper.ProductDTO;
 import jakarta.transaction.Transactional;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;

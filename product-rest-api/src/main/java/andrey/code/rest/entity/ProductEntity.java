@@ -1,4 +1,4 @@
-package andrey.code.entity;
+package andrey.code.rest.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

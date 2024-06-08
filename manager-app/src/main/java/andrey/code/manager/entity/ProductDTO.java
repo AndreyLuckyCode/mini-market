@@ -1,4 +1,4 @@
-package andrey.code.mapper;
+package andrey.code.manager.entity;
 
 public record ProductDTO(
         String name,

@@ -1,8 +1,8 @@
-package andrey.code.controller;
+package andrey.code.rest.controller;
 
-import andrey.code.controller.payload.ProductPayload;
-import andrey.code.mapper.ProductDTO;
-import andrey.code.service.ProductService;
+import andrey.code.rest.controller.payload.ProductPayload;
+import andrey.code.rest.mapper.ProductDTO;
+import andrey.code.rest.service.ProductService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;

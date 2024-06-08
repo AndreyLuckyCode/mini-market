@@ -1,7 +1,7 @@
-package andrey.code.service;
+package andrey.code.rest.service;
 
-import andrey.code.controller.payload.ProductPayload;
-import andrey.code.mapper.ProductDTO;
+import andrey.code.rest.controller.payload.ProductPayload;
+import andrey.code.rest.mapper.ProductDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,5 +20,4 @@ public interface ProductService {
                                          @RequestBody ProductPayload payload);
 
     ResponseEntity<String> deleteProduct(@PathVariable ("productId") Long id);
-
 }

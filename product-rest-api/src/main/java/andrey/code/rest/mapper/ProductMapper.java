@@ -1,6 +1,6 @@
-package andrey.code.mapper;
+package andrey.code.rest.mapper;
 
-import andrey.code.entity.ProductEntity;
+import andrey.code.rest.entity.ProductEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
