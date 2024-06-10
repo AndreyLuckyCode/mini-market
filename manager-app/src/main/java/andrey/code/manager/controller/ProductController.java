@@ -3,11 +3,14 @@ package andrey.code.manager.controller;
 import andrey.code.manager.client.RestClientProductRestClient;
 import andrey.code.manager.controller.payload.ProductPayload;
 import andrey.code.manager.entity.ProductDTO;
+import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindException;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,7 +24,13 @@ public class ProductController {
     RestClientProductRestClient restClientProductRestClient;
 
     @PostMapping
-    public ResponseEntity<String> createProduct(@RequestBody ProductPayload payload){
+    public ResponseEntity<String> createProduct(@Valid @RequestBody ProductPayload payload,
+                                                BindingResult bindingResult)
+                                                throws BindException {
+
+        if(bindingResult.hasErrors()){
+            throw new BindException(bindingResult);
+        }
 
         return restClientProductRestClient.createProduct(payload);
     }
@@ -39,7 +48,7 @@ public class ProductController {
     }
 
     @PatchMapping("/{productId}")
-    public ResponseEntity<String> updateProduct (@PathVariable ("productId") Long id,
+    public ResponseEntity<String> updateProduct (@Valid @PathVariable ("productId") Long id,
                                                  @RequestBody ProductPayload payload){
 
         return restClientProductRestClient.updateProduct(id, payload);
