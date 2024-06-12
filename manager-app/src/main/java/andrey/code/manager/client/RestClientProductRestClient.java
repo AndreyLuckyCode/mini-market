@@ -16,6 +16,7 @@ import org.springframework.web.client.RestClient;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
@@ -31,7 +32,6 @@ public class RestClientProductRestClient implements ProductRestClient{
 
     @Override
     public ResponseEntity<String> createProduct(@RequestBody ProductPayload payload) {
-
         try {
             return restClient
                     .post()
@@ -47,8 +47,7 @@ public class RestClientProductRestClient implements ProductRestClient{
     }
 
     @Override
-    public  ResponseEntity<List<ProductDTO>> getAllProducts() {
-
+    public ResponseEntity<List<ProductDTO>> getAllProducts() {
         List<ProductDTO> products = restClient
                 .get()
                 .uri("/api/v1/products")
@@ -59,7 +58,7 @@ public class RestClientProductRestClient implements ProductRestClient{
     }
 
     @Override
-    public ResponseEntity<ProductDTO> getProductById (@PathVariable ("productId") Long id) {
+    public ResponseEntity<Optional<ProductDTO>> getProductById (@PathVariable ("productId") Long id) {
         try {
             ProductDTO product =
                     restClient
@@ -68,16 +67,15 @@ public class RestClientProductRestClient implements ProductRestClient{
                             .retrieve()
                             .body(ProductDTO.class);
 
-            return ResponseEntity.ok(product);
+            return ResponseEntity.ok(Optional.of(product));
         } catch (HttpClientErrorException.NotFound exception) {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.ok(Optional.empty());
         }
     }
 
     @Override
     public ResponseEntity<String> updateProduct(@PathVariable ("productId") Long id,
                                                 @RequestBody ProductPayload payload) {
-
         try {
             return restClient
                     .patch()

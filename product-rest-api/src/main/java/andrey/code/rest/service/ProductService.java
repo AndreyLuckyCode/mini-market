@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ProductService {
 
@@ -14,7 +15,7 @@ public interface ProductService {
 
     ResponseEntity<List<ProductDTO>> getAllProducts();
 
-    ResponseEntity<ProductDTO> getProductById (@PathVariable ("productId") Long id);
+    Optional<ProductDTO> getProductById (@PathVariable ("productId") Long id);
 
     ResponseEntity<String> updateProduct(@PathVariable ("productId") Long id,
                                          @RequestBody ProductPayload payload);
