@@ -48,8 +48,14 @@ public class ProductController {
     }
 
     @PatchMapping("/{productId}")
-    public ResponseEntity<String> updateProduct (@Valid @PathVariable ("productId") Long id,
-                                                 @RequestBody ProductPayload payload){
+    public ResponseEntity<String> updateProduct (@PathVariable ("productId") Long id,
+                                                 @Valid @RequestBody ProductPayload payload,
+                                                 BindingResult bindingResult)
+                                                 throws BindException {
+
+        if(bindingResult.hasErrors()){
+            throw new BindException(bindingResult);
+        }
 
         return restClientProductRestClient.updateProduct(id, payload);
     }
