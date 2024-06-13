@@ -1,7 +1,6 @@
 package andrey.code.rest.controller;
 
 import andrey.code.rest.controller.payload.ProductPayload;
-import andrey.code.rest.entity.ProductEntity;
 import andrey.code.rest.mapper.ProductDTO;
 import andrey.code.rest.service.ProductService;
 import lombok.AccessLevel;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Locale;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -32,13 +30,7 @@ public class ProductController {
     private static final String GET_PRODUCTS_LIST = "/products";
     private static final String UPDATE_PRODUCT = "/products/{productId}";
     private static final String DELETE_PRODUCT = "/products/{productId}";
-
-    @ModelAttribute("product")
-    public ProductDTO getProduct(@PathVariable("productId") Long productId){
-
-        return productService.getProductById(productId).orElseThrow(()
-                -> new NoSuchElementException("errors.404.not_found"));
-    }
+    private static final String NOT_FOUND_ERROR = "errors.404.not_found";
 
     @PostMapping(CREATE_PRODUCT)
     public ResponseEntity<String> createProduct(@RequestBody ProductPayload payload){
@@ -46,26 +38,36 @@ public class ProductController {
     }
 
     @GetMapping(GET_PRODUCT)
-    public ResponseEntity<ProductDTO> getProductById(@PathVariable("productId") Long id){
-        Optional<ProductDTO> product = productService.getProductById(id);
-        return product.map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND)
-                        .body(null));
+    public ResponseEntity<ProductDTO> getProductById(@PathVariable("productId") Long id) {
+
+        ProductDTO product = productService.getProductById(id)
+                .orElseThrow(() -> new NoSuchElementException(NOT_FOUND_ERROR));
+
+        return ResponseEntity.ok(product);
     }
 
     @GetMapping(GET_PRODUCTS_LIST)
     public ResponseEntity<List<ProductDTO>> getAllProducts(){
+
         return productService.getAllProducts();
     }
 
     @PatchMapping(UPDATE_PRODUCT)
-    public ResponseEntity<String> updateProduct(@PathVariable ("productId") Long id,
-                                                @RequestBody ProductPayload payload){
+    public ResponseEntity<String> updateProduct(@PathVariable("productId") Long id,
+                                                @RequestBody ProductPayload payload) {
+
+        productService.getProductById(id)
+                .orElseThrow(() -> new NoSuchElementException(NOT_FOUND_ERROR));
+
         return productService.updateProduct(id, payload);
     }
 
     @DeleteMapping(DELETE_PRODUCT)
-    public ResponseEntity<String> deleteProduct(@PathVariable("productId") Long id){
+    public ResponseEntity<String> deleteProduct(@PathVariable("productId") Long id) {
+
+        productService.getProductById(id)
+                .orElseThrow(() -> new NoSuchElementException(NOT_FOUND_ERROR));
+
         return productService.deleteProduct(id);
     }
 

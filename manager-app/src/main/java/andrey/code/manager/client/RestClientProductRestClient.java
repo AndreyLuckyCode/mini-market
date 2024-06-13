@@ -69,7 +69,7 @@ public class RestClientProductRestClient implements ProductRestClient{
 
             return ResponseEntity.ok(Optional.of(product));
         } catch (HttpClientErrorException.NotFound exception) {
-            return ResponseEntity.ok(Optional.empty());
+            throw new NoSuchElementException("errors.404.not_found");
         }
     }
 
@@ -87,6 +87,8 @@ public class RestClientProductRestClient implements ProductRestClient{
         } catch (HttpClientErrorException.BadRequest exception) {
             ProblemDetail problemDetail = exception.getResponseBodyAs(ProblemDetail.class);
             throw new BadRequestException((List<String>) problemDetail.getProperties().get("errors"));
+        } catch (HttpClientErrorException.NotFound exception){
+            throw new NoSuchElementException("errors.404.not_found");
         }
     }
 
@@ -99,7 +101,7 @@ public class RestClientProductRestClient implements ProductRestClient{
                     .retrieve()
                     .toEntity(String.class);
         } catch (HttpClientErrorException.NotFound exception) {
-            throw new NoSuchElementException(exception);
+            throw new NoSuchElementException("errors.404.not_found");
         }
     }
 }
