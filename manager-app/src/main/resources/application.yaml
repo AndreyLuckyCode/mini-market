@@ -2,3 +2,5 @@ market:
   services:
     rest:
       uri: http://localhost:8081
+      username: rest_service_user
+      password: password
