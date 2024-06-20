@@ -4,3 +4,14 @@ market:
       uri: http://localhost:8081
       username: rest_service_user
       password: password
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/mini_market_authorities
+    username: postgres
+    password: LuckyCode
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
