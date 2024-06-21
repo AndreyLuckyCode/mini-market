@@ -15,3 +15,20 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: create-drop
+
+  security:
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8082/realms/MiniMarket
+            user-name-attribute: preferred_username
+        registration:
+          keycloak:
+            client-id: manager-app
+            client-secret: o1MDnBZnarOaMcvNCLROhPQ3xl6XSofz
+            scope:
+              - openid
+              - view_catalogue
+              - edit_catalogue
+              - microprofile-jwt
