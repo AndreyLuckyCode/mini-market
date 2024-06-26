@@ -1,0 +1,51 @@
+server:
+  port: 8081
+
+spring:
+  boot:
+    admin:
+      client:
+        url: http://localhost:8085
+        instance:
+          name: catalogue-service
+          service-host-type: ip
+        enabled: true
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8082/realms/MiniMarket
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/mini_market
+    username: postgres
+    password: LuckyCode
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+
+logging:
+  level:
+    sql: info
+
+spring-doc:
+  swagger-ui:
+    oauth:
+      client-id: product-rest-api-swagger-ui
+      use-pkce-with-authorization-code-grant: true
+keycloak:
+  uri: http://localhost:8082
+
+management:
+  health:
+    livenessstate:
+      enabled: true
+    readinessstate:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: '*'
