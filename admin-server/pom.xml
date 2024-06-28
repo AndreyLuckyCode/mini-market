@@ -9,7 +9,7 @@
     </parent>
 
     <artifactId>admin-server</artifactId>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <name>admin-server Maven Webapp</name>
     <url>http://maven.apache.org</url>
 

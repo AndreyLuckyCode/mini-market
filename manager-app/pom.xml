@@ -9,8 +9,7 @@
     </parent>
 
     <artifactId>manager-app</artifactId>
-
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <name>manager-app Maven Webapp</name>
     <url>http://maven.apache.org</url>
 
